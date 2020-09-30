@@ -62,14 +62,11 @@ public class Controller {
 
     @FXML
     private Button editTaskId;
-
-    //Тут храняться задачи
-    public ObservableList<Task> taskListForTable = FXCollections.observableArrayList();
-    //Переменная для храннения ID выбраной задачи используется при удалении
-    private int idTask;
-    //Пременная для хранния выбраной даты
-    //Тут будет храниться дата крайнего срока задачи
-    String dateOfNewTask;
+    
+    public ObservableList<Task> taskListForTable = FXCollections.observableArrayList(); //Тут храняться задачи
+    private int idTask; //Переменная для храннения ID выбраной задачи используется при удалении
+    String dateOfNewTask;  //Тут будет храниться дата крайнего срока задачи
+    TypeOfDisplayedTasks typeOfDisplayedTasks; //Это перечисления для хранения типа покзываемых задач, нужно для отображения задач после удаления
 
     @FXML
     private void initialize() {
@@ -84,6 +81,7 @@ public class Controller {
         // по умолчанию это задачи на сегодняшний день
         //Создаем обьект который иницализирует запрос, вызываем у него метод на получение данных, с помошью BDQurry выбираем нужный запрос
         setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
+        typeOfDisplayedTasks = TypeOfDisplayedTasks.TODAY;
         // добавляем данные в таблицу
         tableShowTasks.setItems(taskListForTable);
         // Получение данных из таблицы в переменную idTask;
@@ -96,8 +94,6 @@ public class Controller {
             }
         });
 
-
-
     }
 
     //Метод позвоялющий заполнить таблицу данными из базы данны
@@ -107,41 +103,34 @@ public class Controller {
             taskListForTable.add(x);
         }
     }
+    //Метод который перерисовывает таблицу после удаления или добавления задач
+    private void refreshTable(TypeOfDisplayedTasks typeOfDisplayedTasks){
+        switch (typeOfDisplayedTasks){
+            case TODAY -> {
+                taskListForTable.clear();
+                setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
+            }case WEEK -> {
+                taskListForTable.clear();
+                setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
+            }case LATER -> {
+                taskListForTable.clear();
+                setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
+            }case ALL -> {
+                setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
+            }
+        }
+    };
 
-    @FXML
-    void addNewTaskBtn(ActionEvent event) {
-        new TaskCreator().createTask(TextFieldForNewTask.getText(),dateOfNewTask);
-    }
-
-    //Удаление задачи по id
-    @FXML
-    void deleteTaskBtn(ActionEvent event) {
-        new TaskRemover().removeTask(idTask);
-    }
-
-    @FXML
-    void editTaskBtn(ActionEvent event) {
-
-    }
-
+    //Установить дану новой задачи из дата пикера
     @FXML
     void setDateOfNewTask(ActionEvent event) {
         dateOfNewTask = setNewTaskDataFinishId.getValue().toString();
     }
 
-
-    //Показать все задачи в том числе завершенные
+    //После нажатия этой кнопки добавляется новая задача
     @FXML
-    void showAllTasksBtn(ActionEvent event) {
-        taskListForTable.clear();
-        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTask()));
-    }
-
-    //Показать все дадачи без завершенных
-    @FXML
-    void showLaterTaskBtn(ActionEvent event) {
-        taskListForTable.clear();
-        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
+    void addNewTaskBtn(ActionEvent event) {
+        new TaskCreator().createTask(TextFieldForNewTask.getText(),dateOfNewTask);
     }
 
     //Показать сегодняшние задачи
@@ -149,6 +138,7 @@ public class Controller {
     void showTodayTasksBtn(ActionEvent event) {
         taskListForTable.clear();
         setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
+        typeOfDisplayedTasks = TypeOfDisplayedTasks.TODAY;
     }
 
     //Показать задачи на неделю
@@ -156,6 +146,35 @@ public class Controller {
     void showWeekTasksBtn(ActionEvent event) {
         taskListForTable.clear();
         setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
+        typeOfDisplayedTasks = TypeOfDisplayedTasks.WEEK;
     }
 
+    //Показать все дадачи без завершенных LATER
+    @FXML
+    void showLaterTaskBtn(ActionEvent event) {
+        taskListForTable.clear();
+        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
+        typeOfDisplayedTasks = TypeOfDisplayedTasks.LATER;
+    }
+    //Показать все задачи в том числе завершенные
+    @FXML
+    void showAllTasksBtn(ActionEvent event) {
+        taskListForTable.clear();
+        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTask()));
+        typeOfDisplayedTasks = TypeOfDisplayedTasks.ALL;
+
+    }
+
+    //Удаление задачи по id
+    @FXML
+    void deleteTaskBtn(ActionEvent event) {
+        new TaskRemover().removeTask(idTask);
+        refreshTable(typeOfDisplayedTasks);
+    }
+
+    //Редактирование задачи получить по id задачу затем передать ее в окно, отредактировать и сохранить
+    @FXML
+    void editTaskBtn(ActionEvent event) {
+
+    }
 }
