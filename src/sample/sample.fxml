@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.Controller">
+    <children>
+        <TextField fx:id="TextFieldForNewTask" layoutX="15.0" layoutY="15.0" prefHeight="25.0" prefWidth="786.0" promptText="Добавить новую задачу">
+        </TextField>
+        <Button fx:id="addNewTaskId" layoutX="944.0" layoutY="15.0" mnemonicParsing="false" onAction="#addNewTaskBtn" prefHeight="25.0" prefWidth="54.0" text="Add">
+        </Button>
+        <TableView fx:id="tableShowTasks" layoutX="13.0" layoutY="55.0" prefHeight="531.0" prefWidth="989.0">
+            <columns>
+                <TableColumn fx:id="setStatus" prefWidth="47.0" text="status" />
+                <TableColumn fx:id="id" prefWidth="53.0" text="id" />
+                <TableColumn fx:id="name" prefWidth="625.0" text="name" />
+                <TableColumn fx:id="dateCreate" prefWidth="144.0" text="create" />
+                <TableColumn fx:id="dateFinish" prefWidth="117.0" text="finish" />
+
+            </columns>
+
+        </TableView>
+        <Button fx:id="todayTasksId" layoutX="13.0" layoutY="601.0" mnemonicParsing="false" onAction="#showTodayTasksBtn" prefHeight="25.0" prefWidth="83.0" text="Today">
+        </Button>
+        <Button fx:id="weekTasksId" layoutX="104.0" layoutY="601.0" mnemonicParsing="false" onAction="#showWeekTasksBtn" prefHeight="25.0" prefWidth="83.0" text="Week">
+        </Button>
+        <Button fx:id="laterTasksId" layoutX="195.0" layoutY="601.0" mnemonicParsing="false" onAction="#showLaterTaskBtn" prefHeight="25.0" prefWidth="83.0" text="Later">
+        </Button>
+        <DatePicker fx:id="setNewTaskDataFinishId" layoutX="811.0" layoutY="15.0" onAction="#setNewTaskDataFinishBtn" prefHeight="25.0" prefWidth="120.0">
+        </DatePicker>
+        <Button fx:id="deleteTaskId" layoutX="950.0" layoutY="601.0" mnemonicParsing="false" onAction="#deleteTaskBtn" prefHeight="25.0" prefWidth="54.0" text="Delete">
+        </Button>
+        <Button fx:id="showAllTasksId" layoutX="288.0" layoutY="601.0" mnemonicParsing="false" onAction="#showAllTasksBtn" text="All" />
+        <Button fx:id="editTaskId" layoutX="900.0" layoutY="601.0" mnemonicParsing="false" onAction="#editTaskBtn" text="Edit" />
+    </children>
+</AnchorPane>
