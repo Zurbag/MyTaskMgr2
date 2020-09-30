@@ -67,6 +67,9 @@ public class Controller {
     public ObservableList<Task> taskListForTable = FXCollections.observableArrayList();
     //Переменная для храннения ID выбраной задачи используется при удалении
     private int idTask;
+    //Пременная для хранния выбраной даты
+    //Тут будет храниться дата крайнего срока задачи
+    String dateOfNewTask;
 
     @FXML
     private void initialize() {
@@ -107,13 +110,13 @@ public class Controller {
 
     @FXML
     void addNewTaskBtn(ActionEvent event) {
-
+        new TaskCreator().createTask(TextFieldForNewTask.getText(),dateOfNewTask);
     }
 
     //Удаление задачи по id
     @FXML
     void deleteTaskBtn(ActionEvent event) {
-        new DBTaskSeter().updateDate(new DBQuery().deleteTask(idTask));
+        new TaskRemover().removeTask(idTask);
     }
 
     @FXML
@@ -122,9 +125,10 @@ public class Controller {
     }
 
     @FXML
-    void setNewTaskDataFinishBtn(ActionEvent event) {
-
+    void setDateOfNewTask(ActionEvent event) {
+        dateOfNewTask = setNewTaskDataFinishId.getValue().toString();
     }
+
 
     //Показать все задачи в том числе завершенные
     @FXML

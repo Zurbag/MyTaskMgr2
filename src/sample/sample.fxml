@@ -30,7 +30,7 @@
         </Button>
         <Button fx:id="laterTasksId" layoutX="195.0" layoutY="601.0" mnemonicParsing="false" onAction="#showLaterTaskBtn" prefHeight="25.0" prefWidth="83.0" text="Later">
         </Button>
-        <DatePicker fx:id="setNewTaskDataFinishId" layoutX="811.0" layoutY="15.0" onAction="#setNewTaskDataFinishBtn" prefHeight="25.0" prefWidth="120.0">
+        <DatePicker fx:id="setNewTaskDataFinishId" layoutX="811.0" layoutY="15.0" onAction="#setDateOfNewTask" prefHeight="25.0" prefWidth="120.0">
         </DatePicker>
         <Button fx:id="deleteTaskId" layoutX="950.0" layoutY="601.0" mnemonicParsing="false" onAction="#deleteTaskBtn" prefHeight="25.0" prefWidth="54.0" text="Delete">
         </Button>
