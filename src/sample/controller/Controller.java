@@ -14,12 +14,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class Controller {
 
     @FXML
-    private TextField TextFieldForNewTask;
+    private TextField textFieldForNewTask;
 
     @FXML
     private Button addNewTaskId;
@@ -52,7 +54,7 @@ public class Controller {
     private Button laterTasksId;
 
     @FXML
-    private DatePicker setNewTaskDataFinishId;
+    private DatePicker newTaskDataPiker;
 
     @FXML
     private Button deleteTaskId;
@@ -77,6 +79,8 @@ public class Controller {
         dateCreate.setCellValueFactory(new PropertyValueFactory<Task, String>("dateCreate"));
         dateFinish.setCellValueFactory(new PropertyValueFactory<Task, String>("dateFinish"));
 
+        //Устанавливаю в датапикер сегодняшнюю дату, это не влияет на код переджаваемый в базу
+        newTaskDataPiker.setPromptText(new TaskDate().getTodayDateString());
         // заполняем данными
         // по умолчанию это задачи на сегодняшний день
         //Создаем обьект который иницализирует запрос, вызываем у него метод на получение данных, с помошью BDQurry выбираем нужный запрос
@@ -121,16 +125,19 @@ public class Controller {
         }
     };
 
+    //СОЗДАНИЕ НОВОЙ ЗАДАЧИ
     //Установить дану новой задачи из дата пикера
     @FXML
     void setDateOfNewTask(ActionEvent event) {
-        dateOfNewTask = setNewTaskDataFinishId.getValue().toString();
+        dateOfNewTask = newTaskDataPiker.getValue().toString();
     }
 
     //После нажатия этой кнопки добавляется новая задача
     @FXML
     void addNewTaskBtn(ActionEvent event) {
-        new TaskCreator().createTask(TextFieldForNewTask.getText(),dateOfNewTask);
+        new TaskCreator().createTask(textFieldForNewTask.getText(),dateOfNewTask);
+        textFieldForNewTask.clear();
+        refreshTable(typeOfDisplayedTasks);
     }
 
     //Показать сегодняшние задачи

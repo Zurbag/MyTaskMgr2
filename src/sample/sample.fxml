@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.Controller">
     <children>
-        <TextField fx:id="TextFieldForNewTask" layoutX="15.0" layoutY="15.0" prefHeight="25.0" prefWidth="786.0" promptText="Добавить новую задачу">
+        <TextField fx:id="textFieldForNewTask" layoutX="15.0" layoutY="15.0" prefHeight="25.0" prefWidth="786.0" promptText="Добавить новую задачу">
         </TextField>
         <Button fx:id="addNewTaskId" layoutX="944.0" layoutY="15.0" mnemonicParsing="false" onAction="#addNewTaskBtn" prefHeight="25.0" prefWidth="54.0" text="Add">
         </Button>
@@ -30,7 +30,7 @@
         </Button>
         <Button fx:id="laterTasksId" layoutX="195.0" layoutY="601.0" mnemonicParsing="false" onAction="#showLaterTaskBtn" prefHeight="25.0" prefWidth="83.0" text="Later">
         </Button>
-        <DatePicker fx:id="setNewTaskDataFinishId" layoutX="811.0" layoutY="15.0" onAction="#setDateOfNewTask" prefHeight="25.0" prefWidth="120.0">
+        <DatePicker fx:id="newTaskDataPiker" layoutX="811.0" layoutY="15.0" onAction="#setDateOfNewTask" prefHeight="25.0" prefWidth="120.0">
         </DatePicker>
         <Button fx:id="deleteTaskId" layoutX="950.0" layoutY="601.0" mnemonicParsing="false" onAction="#deleteTaskBtn" prefHeight="25.0" prefWidth="54.0" text="Delete">
         </Button>
