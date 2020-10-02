@@ -1,5 +1,9 @@
 package sample;
 
+import sample.DataBase.DBQuery;
+import sample.DataBase.DBTaskGeter;
+import sample.DataBase.DBTaskSeter;
+
 import java.util.Scanner;
 
 public class Test {

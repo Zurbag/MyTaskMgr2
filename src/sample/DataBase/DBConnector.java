@@ -1,4 +1,4 @@
-package sample;
+package sample.DataBase;
 
 import java.io.File;
 import java.io.FileNotFoundException;

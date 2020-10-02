@@ -6,19 +6,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import sample.*;
+import sample.DataBase.DBQuery;
+import sample.DataBase.DBTaskGeter;
 
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
-public class Controller {
+public class MainController {
 
     @FXML
     private TextField textFieldForNewTask;
@@ -182,6 +187,22 @@ public class Controller {
     //Редактирование задачи получить по id задачу затем передать ее в окно, отредактировать и сохранить
     @FXML
     void editTaskBtn(ActionEvent event) {
+        //Скрываем сцену на которой находится кнопка edit
+        //editTaskId.getScene().getWindow().hide();
+        //Инициализируем класс который будет показывать окно
+        FXMLLoader loader = new FXMLLoader();
+        //Используя сет локейшен показываем какой ресурс мы загрузим
+        loader.setLocation(getClass().getResource("/sample/fxml/edit.fxml"));
+        //С помошью метода лоад загружем файл
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 }
