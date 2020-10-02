@@ -1,7 +1,7 @@
 package sample;
 
-import sample.DataBase.DBQuery;
-import sample.DataBase.DBTaskSeter;
+import sample.dataBase.DBQuery;
+import sample.dataBase.DBTaskSeter;
 
 public class TaskRemover {
     public void removeTask(int id){

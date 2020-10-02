@@ -1,8 +1,8 @@
 package sample;
 
 import javafx.scene.control.Alert;
-import sample.DataBase.DBQuery;
-import sample.DataBase.DBTaskSeter;
+import sample.dataBase.DBQuery;
+import sample.dataBase.DBTaskSeter;
 
 public class TaskCreator {
 

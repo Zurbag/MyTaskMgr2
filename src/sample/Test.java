@@ -1,8 +1,8 @@
 package sample;
 
-import sample.DataBase.DBQuery;
-import sample.DataBase.DBTaskGeter;
-import sample.DataBase.DBTaskSeter;
+import sample.dataBase.DBQuery;
+import sample.dataBase.DBTaskGeter;
+import sample.dataBase.DBTaskSeter;
 
 import java.util.Scanner;
 

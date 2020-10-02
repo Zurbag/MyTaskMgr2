@@ -1,4 +1,4 @@
-package sample.DataBase;
+package sample.dataBase;
 import sample.Task;
 
 import java.sql.*;

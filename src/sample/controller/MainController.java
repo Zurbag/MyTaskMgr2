@@ -17,8 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sample.*;
-import sample.DataBase.DBQuery;
-import sample.DataBase.DBTaskGeter;
+import sample.dataBase.DBQuery;
+import sample.dataBase.DBTaskGeter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -69,11 +69,11 @@ public class MainController {
 
     @FXML
     private Button editTaskId;
-    
-    public ObservableList<Task> taskListForTable = FXCollections.observableArrayList(); //Тут храняться задачи
+
+    public static ObservableList<Task> taskListForTable = FXCollections.observableArrayList(); //Тут храняться задачи
     private static int idTask; //Переменная для храннения ID выбраной задачи используется при удалении
     String dateOfNewTask;  //Тут будет храниться дата крайнего срока задачи
-    TypeOfDisplayedTasks typeOfDisplayedTasks; //Это перечисления для хранения типа покзываемых задач, нужно для отображения задач после удаления
+    public static TypeOfDisplayedTasks typeOfDisplayedTasks; //Это перечисления для хранения типа покзываемых задач, нужно для отображения задач после удаления
 
     @FXML
     private void initialize() {
@@ -100,39 +100,48 @@ public class MainController {
             @Override
             public void changed(ObservableValue<? extends Task> observableValue, Task task, Task t1) {
                 if (t1 != null) idTask = t1.getId();
-                System.out.println(idTask);
             }
         });
 
     }
+
     //В данном случае позволяет передавать idTask в другие окна программы, idTask сделал static
-    public int getIdTask(){
+    public int getIdTask() {
         return idTask;
     }
+
     //Метод позвоялющий заполнить таблицу данными из базы данны
-    private void setTaskListForTable(ArrayList<Task> tasksFromBD){
-        for (Task x:tasksFromBD
+    private static void setTaskListForTable(ArrayList<Task> tasksFromBD) {
+        for (Task x : tasksFromBD
         ) {
             taskListForTable.add(x);
         }
     }
+
     //Метод который перерисовывает таблицу после удаления или добавления задач
-    private void refreshTable(TypeOfDisplayedTasks typeOfDisplayedTasks){
-        switch (typeOfDisplayedTasks){
+    public static void refreshTable(TypeOfDisplayedTasks typeOfDisplayedTasks) {
+        switch (typeOfDisplayedTasks) {
             case TODAY -> {
                 taskListForTable.clear();
                 setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
-            }case WEEK -> {
+            }
+            case WEEK -> {
                 taskListForTable.clear();
                 setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
-            }case LATER -> {
+            }
+            case LATER -> {
                 taskListForTable.clear();
                 setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
-            }case ALL -> {
-                setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
+            }
+            case ALL -> {
+                taskListForTable.clear();
+                setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTask()));
             }
         }
-    };
+
+    }
+
+    ;
 
     //СОЗДАНИЕ НОВОЙ ЗАДАЧИ
     //Установить дану новой задачи из дата пикера
@@ -144,7 +153,7 @@ public class MainController {
     //После нажатия этой кнопки добавляется новая задача
     @FXML
     void addNewTaskBtn(ActionEvent event) {
-        new TaskCreator().createTask(textFieldForNewTask.getText(),dateOfNewTask);
+        new TaskCreator().createTask(textFieldForNewTask.getText(), dateOfNewTask);
         textFieldForNewTask.clear();
         refreshTable(typeOfDisplayedTasks);
     }
@@ -172,12 +181,14 @@ public class MainController {
         setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.LATER;
     }
+
     //Показать все задачи в том числе завершенные
     @FXML
     void showAllTasksBtn(ActionEvent event) {
         taskListForTable.clear();
         setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTask()));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.ALL;
+
 
     }
 

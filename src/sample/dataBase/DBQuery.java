@@ -1,8 +1,6 @@
-package sample.DataBase;
+package sample.dataBase;
 
 import sample.TaskDate;
-
-import java.util.Date;
 
 public class DBQuery {
 
@@ -29,6 +27,9 @@ public class DBQuery {
     public String editTask(int id,Boolean status, String name, String dateFinish){
         return ("UPDATE tasks SET name = '"+name+"', status = "+status+", dateFinish = '"+dateFinish+"' WHERE id = "+id);
     }
+//    public String editTask(int id,Boolean status, String name, String dateFinish){
+//        return ("UPDATE tasks SET name = '"+name+"', status = "+status+", dateFinish = '"+dateFinish+"' WHERE id = "+id);
+//    }
 
     public String deleteTask(int id){
         return ("DELETE FROM `tasks` WHERE `id` = " + id + ";");
