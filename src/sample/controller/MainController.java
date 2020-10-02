@@ -71,7 +71,7 @@ public class MainController {
     private Button editTaskId;
     
     public ObservableList<Task> taskListForTable = FXCollections.observableArrayList(); //Тут храняться задачи
-    private int idTask; //Переменная для храннения ID выбраной задачи используется при удалении
+    private static int idTask; //Переменная для храннения ID выбраной задачи используется при удалении
     String dateOfNewTask;  //Тут будет храниться дата крайнего срока задачи
     TypeOfDisplayedTasks typeOfDisplayedTasks; //Это перечисления для хранения типа покзываемых задач, нужно для отображения задач после удаления
 
@@ -100,11 +100,15 @@ public class MainController {
             @Override
             public void changed(ObservableValue<? extends Task> observableValue, Task task, Task t1) {
                 if (t1 != null) idTask = t1.getId();
+                System.out.println(idTask);
             }
         });
 
     }
-
+    //В данном случае позволяет передавать idTask в другие окна программы, idTask сделал static
+    public int getIdTask(){
+        return idTask;
+    }
     //Метод позвоялющий заполнить таблицу данными из базы данны
     private void setTaskListForTable(ArrayList<Task> tasksFromBD){
         for (Task x:tasksFromBD
