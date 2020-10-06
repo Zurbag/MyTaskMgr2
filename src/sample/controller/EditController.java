@@ -11,7 +11,7 @@ import sample.dataBase.DBTaskGeter;
 import sample.Task;
 import sample.dataBase.DBTaskSeter;
 
-public class EditController {
+public class EditController{
 
     @FXML
     private TextField editNameTextField;

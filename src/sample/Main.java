@@ -13,6 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/sample.fxml"));
         primaryStage.setTitle("Менеджер задач v.1.1");
         primaryStage.setScene(new Scene(root, 1024, 640));
+        primaryStage.setResizable(false);
         primaryStage.show();
 
 

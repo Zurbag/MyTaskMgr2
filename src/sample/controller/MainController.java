@@ -23,7 +23,7 @@ import sample.dataBase.DBTaskGeter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainController {
+public class MainController{
 
     @FXML
     private TextField textFieldForNewTask;
@@ -195,8 +195,23 @@ public class MainController {
     //Удаление задачи по id
     @FXML
     void deleteTaskBtn(ActionEvent event) {
-        new TaskRemover().removeTask(idTask);
-        refreshTable(typeOfDisplayedTasks);
+        FXMLLoader loader = new FXMLLoader();
+        //Используя сет локейшен показываем какой ресурс мы загрузим
+        loader.setLocation(getClass().getResource("/sample/fxml/delete.fxml"));
+        //С помошью метода лоад загружем файл
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.showAndWait();
+
+
     }
 
     //Редактирование задачи получить по id задачу затем передать ее в окно, отредактировать и сохранить
@@ -218,6 +233,7 @@ public class MainController {
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.showAndWait();
     }
 }
