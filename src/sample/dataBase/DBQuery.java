@@ -8,6 +8,7 @@ public class DBQuery {
     public String getTaskLikeName(String name){
         return ("SELECT * FROM `tasks` WHERE `name` LIKE '%"+name+"%'");
     }
+
     //Показать задачи по интексу
     public String getOneTaskForIndex(int idForQuery){
         return "SELECT * FROM tasks where id=" + idForQuery + ";";
@@ -25,7 +26,6 @@ public class DBQuery {
 
     //Показать задачи с определенной датой
     public String getTasksForThisDate(String date){
-        //return "SELECT * FROM tasks where dateFinish <=" + date + ";";
         return "SELECT * FROM tasks where (dateFinish <= \'"+date+"\') and (status = true) ;";
     }
 
@@ -38,10 +38,8 @@ public class DBQuery {
     public String editTask(int id,Boolean status, String name, String dateFinish){
         return ("UPDATE tasks SET name = '"+name+"', status = "+status+", dateFinish = '"+dateFinish+"' WHERE id = "+id);
     }
-//    public String editTask(int id,Boolean status, String name, String dateFinish){
-//        return ("UPDATE tasks SET name = '"+name+"', status = "+status+", dateFinish = '"+dateFinish+"' WHERE id = "+id);
-//    }
 
+    //Удаление задачи по id
     public String deleteTask(int id){
         return ("DELETE FROM `tasks` WHERE `id` = " + id + ";");
     }

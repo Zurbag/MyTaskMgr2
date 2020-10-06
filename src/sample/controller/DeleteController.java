@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import sample.Task;
 import sample.TaskRemover;
 import sample.TypeOfDisplayedTasks;
-import sample.dataBase.DBQuery;
-import sample.dataBase.DBTaskGeter;
 
 public class DeleteController {
 

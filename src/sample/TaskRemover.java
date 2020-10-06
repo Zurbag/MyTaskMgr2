@@ -1,10 +1,10 @@
 package sample;
 
 import sample.dataBase.DBQuery;
-import sample.dataBase.DBTaskSeter;
+import sample.dataBase.DBTaskSetter;
 
 public class TaskRemover {
     public void removeTask(int id){
-        new DBTaskSeter().updateDate(new DBQuery().deleteTask(id));
+        new DBTaskSetter().updateDate(new DBQuery().deleteTask(id));
     }
 }

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBTaskSeter {
+public class DBTaskSetter {
 
     //Отправка запроса на создание задачи
     public void updateDate(String query){

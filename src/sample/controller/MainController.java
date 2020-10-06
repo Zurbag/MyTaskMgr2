@@ -15,12 +15,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.*;
 import sample.dataBase.DBQuery;
-import sample.dataBase.DBTaskGeter;
+import sample.dataBase.DBTaskGetter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -94,8 +92,9 @@ public class MainController{
         // заполняем данными
         // по умолчанию это задачи на сегодняшний день
         //Создаем обьект который иницализирует запрос, вызываем у него метод на получение данных, с помошью BDQurry выбираем нужный запрос
-        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
+        setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.TODAY;
+
         // добавляем данные в таблицу
         tableShowTasks.setItems(taskListForTable);
         // Получение данных из таблицы в переменную idTask;
@@ -116,7 +115,7 @@ public class MainController{
     }
 
     //Метод позвоялющий заполнить таблицу данными из базы данны
-    private static void setTaskListForTable(ArrayList<Task> tasksFromBD) {
+    public static void setTaskListForTable(ArrayList<Task> tasksFromBD) {
         for (Task x : tasksFromBD
         ) {
             taskListForTable.add(x);
@@ -128,19 +127,19 @@ public class MainController{
         switch (typeOfDisplayedTasks) {
             case TODAY -> {
                 taskListForTable.clear();
-                setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
+                setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
             }
             case WEEK -> {
                 taskListForTable.clear();
-                setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
+                setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
             }
             case LATER -> {
                 taskListForTable.clear();
-                setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
+                setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
             }
             case ALL -> {
                 taskListForTable.clear();
-                setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTask()));
+                setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getAllTask()));
             }
         }
 
@@ -167,7 +166,7 @@ public class MainController{
     @FXML
     void showTodayTasksBtn(ActionEvent event) {
         taskListForTable.clear();
-        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
+        setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.TODAY;
     }
 
@@ -175,7 +174,7 @@ public class MainController{
     @FXML
     void showWeekTasksBtn(ActionEvent event) {
         taskListForTable.clear();
-        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
+        setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.WEEK;
     }
 
@@ -183,7 +182,7 @@ public class MainController{
     @FXML
     void showLaterTaskBtn(ActionEvent event) {
         taskListForTable.clear();
-        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
+        setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.LATER;
     }
 
@@ -191,7 +190,7 @@ public class MainController{
     @FXML
     void showAllTasksBtn(ActionEvent event) {
         taskListForTable.clear();
-        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getAllTask()));
+        setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getAllTask()));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.ALL;
 
 
@@ -244,8 +243,24 @@ public class MainController{
 
     @FXML
     void search(ActionEvent event) {
-        taskListForTable.clear();
-        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTaskLikeName(textFieldForNewTask.getText())));
+        //Скрываем сцену на которой находится кнопка edit
+        //editTaskId.getScene().getWindow().hide();
+        //Инициализируем класс который будет показывать окно
+        FXMLLoader loader = new FXMLLoader();
+        //Используя сет локейшен показываем какой ресурс мы загрузим
+        loader.setLocation(getClass().getResource("/sample/fxml/search.fxml"));
+        //С помошью метода лоад загружем файл
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.showAndWait();
     }
 
 }

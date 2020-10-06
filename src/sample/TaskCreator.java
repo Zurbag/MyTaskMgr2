@@ -2,7 +2,7 @@ package sample;
 
 import javafx.scene.control.Alert;
 import sample.dataBase.DBQuery;
-import sample.dataBase.DBTaskSeter;
+import sample.dataBase.DBTaskSetter;
 
 public class TaskCreator {
 
@@ -29,7 +29,7 @@ public class TaskCreator {
         }
 
         //Запрос на удаление задачи
-        new DBTaskSeter().updateDate(new DBQuery().createTask(nameTask, dataFinish));
+        new DBTaskSetter().updateDate(new DBQuery().createTask(nameTask, dataFinish));
 
     }
 

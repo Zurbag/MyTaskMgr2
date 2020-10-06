@@ -7,9 +7,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import sample.TypeOfDisplayedTasks;
 import sample.dataBase.DBQuery;
-import sample.dataBase.DBTaskGeter;
+import sample.dataBase.DBTaskGetter;
 import sample.Task;
-import sample.dataBase.DBTaskSeter;
+import sample.dataBase.DBTaskSetter;
 
 public class EditController{
 
@@ -34,7 +34,7 @@ public class EditController{
     TypeOfDisplayedTasks typeOfDisplayedTasks = MainController.typeOfDisplayedTasks;
     @FXML
     private void initialize(){
-        for (Task x:new DBTaskGeter().getData(new DBQuery().getOneTaskForIndex(new MainController().getIdTask()))
+        for (Task x:new DBTaskGetter().getData(new DBQuery().getOneTaskForIndex(new MainController().getIdTask()))
              ) {
             editTask.setId(x.getId());
             editNameTextField.setText(x.getName());
@@ -71,7 +71,7 @@ public class EditController{
 
     //Добавление задачи в базу и скрытие окна
     private void addTaskForDBandHideWindow(){
-        new DBTaskSeter().updateDate(new DBQuery().editTask(editTask.getId(),
+        new DBTaskSetter().updateDate(new DBQuery().editTask(editTask.getId(),
                 editTask.getStatus(),editNameTextField.getText(),editTask.getDateFinish()));
                 editApplyBtn.getScene().getWindow().hide();
                 new MainController().refreshTable(typeOfDisplayedTasks);

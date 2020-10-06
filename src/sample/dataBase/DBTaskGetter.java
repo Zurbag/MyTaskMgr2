@@ -4,7 +4,7 @@ import sample.Task;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DBTaskGeter {
+public class DBTaskGetter {
     //Получить данные из таблицы строка запроса находится в классе DBQuery
     public ArrayList<Task> getData(String query){
             ArrayList<Task> taskArrayList = new ArrayList<>();

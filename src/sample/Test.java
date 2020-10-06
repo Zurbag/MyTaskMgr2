@@ -1,8 +1,8 @@
 package sample;
 
 import sample.dataBase.DBQuery;
-import sample.dataBase.DBTaskGeter;
-import sample.dataBase.DBTaskSeter;
+import sample.dataBase.DBTaskGetter;
+import sample.dataBase.DBTaskSetter;
 
 import java.util.Scanner;
 
@@ -28,10 +28,10 @@ public class Test {
                 Scanner scanner1 = new Scanner(System.in);
                 String name = scanner1.nextLine();
                 String date = scanner1.nextLine();
-                new DBTaskSeter().updateDate(new DBQuery().createTask(name,date));
+                new DBTaskSetter().updateDate(new DBQuery().createTask(name,date));
             }//Показать все задачи
             else if (go == 1){
-                for (Task x: new DBTaskGeter().getData(new DBQuery().getAllTask())
+                for (Task x: new DBTaskGetter().getData(new DBQuery().getAllTask())
                 ) {
                     System.out.print(x.getId()+" ");
                     System.out.print(x.getStatus()+" ");
@@ -42,7 +42,7 @@ public class Test {
                 }
                 //Показать сегодняшние задачи
             }else if (go == 2){
-                for (Task x: new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString()))
+                for (Task x: new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString()))
                 ) {
                     System.out.print(x.getId()+" ");
                     System.out.print(x.getStatus()+" ");
@@ -53,7 +53,7 @@ public class Test {
                 }
                 //Показать задачи на неделю
             }else if (go == 3){
-                for (Task x: new DBTaskGeter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString()))//
+                for (Task x: new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString()))//
                 ) {
                     System.out.print(x.getId()+" ");
                     System.out.print(x.getName()+" ");
@@ -64,7 +64,7 @@ public class Test {
 
                 //Показать задачу по id
             }else if (go == 4){
-                DBTaskGeter recipient = new DBTaskGeter();
+                DBTaskGetter recipient = new DBTaskGetter();
                 System.out.println("Введите id задачи");
                 for (Task x: recipient.getData(new DBQuery().getOneTaskForIndex(scanner.nextInt()))//
                 ) {
@@ -76,11 +76,11 @@ public class Test {
                 }
                 //Получить задачу по id и изменить ее
             }else if (go == 5){
-                new DBTaskSeter().updateDate(new DBQuery().editTask(55,true,"Измененная задача","2055-09-09"));
+                new DBTaskSetter().updateDate(new DBQuery().editTask(55,true,"Измененная задача","2055-09-09"));
 
                 //Удалить данные по id
             }else if (go == 6){
-                new DBTaskSeter().updateDate(new DBQuery().deleteTask(91));
+                new DBTaskSetter().updateDate(new DBQuery().deleteTask(91));
             }
         }
     }
