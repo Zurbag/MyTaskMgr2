@@ -15,6 +15,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.*;
 import sample.dataBase.DBQuery;
@@ -69,6 +71,9 @@ public class MainController{
 
     @FXML
     private Button editTaskId;
+
+    @FXML
+    private Button searchBtn;
 
     public static ObservableList<Task> taskListForTable = FXCollections.observableArrayList(); //Тут храняться задачи
     private static int idTask; //Переменная для храннения ID выбраной задачи используется при удалении
@@ -236,4 +241,11 @@ public class MainController{
         stage.setResizable(false);
         stage.showAndWait();
     }
+
+    @FXML
+    void search(ActionEvent event) {
+        taskListForTable.clear();
+        setTaskListForTable(new DBTaskGeter().getData(new DBQuery().getTaskLikeName(textFieldForNewTask.getText())));
+    }
+
 }
