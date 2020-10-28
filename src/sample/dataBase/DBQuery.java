@@ -34,6 +34,18 @@ public class DBQuery {
         return ("INSERT INTO tasks (status, name, dateCreate, dateFinish) values( true, '" + name + "', '" + new TaskDate().getTodayDateString() + "', '" + dateFinish + "')");
     }
 
+    //Создание проекта
+//    public String createProject(String name, String dateFinish){
+//        return ("INSERT INTO project (status, name, dateCreate, dateFinish) values( true, '" + name + "', '"  "', '" + dateFinish + "')");
+//    }
+    public String createProject(String name, String dateFinish, String description){
+        return ("INSERT INTO project (status, name, dateCreate, dateFinish, description) values( true, '" +name+"'," +
+                " '"+ new TaskDate().getTodayDateString() +"', '"+dateFinish+"', '"+description+"')");
+    }
+
+
+
+
     //Добавление отредактированной задачм
     public String editTask(int id,Boolean status, String name, String dateFinish){
         return ("UPDATE tasks SET name = '"+name+"', status = "+status+", dateFinish = '"+dateFinish+"' WHERE id = "+id);

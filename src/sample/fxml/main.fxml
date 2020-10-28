@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainController">
     <children>
         <TextField fx:id="textFieldForNewTask" layoutX="16.0" layoutY="15.0" prefHeight="25.0" prefWidth="781.0" promptText="Add new task">
         </TextField>
@@ -45,6 +45,6 @@
           <MenuItem mnemonicParsing="false" text="Action 2" />
         </items>
       </MenuButton>
-      <Button layoutX="924.0" layoutY="52.0" mnemonicParsing="false" text="New Project" />
+      <Button fx:id="CreateProjectBtn" layoutX="924.0" layoutY="52.0" mnemonicParsing="false" onAction="#CreateProject" text="New Project" />
     </children>
 </AnchorPane>

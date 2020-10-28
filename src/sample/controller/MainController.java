@@ -73,6 +73,11 @@ public class MainController{
     @FXML
     private Button searchBtn;
 
+    @FXML
+    private Button CreateProjectBtn;
+
+
+
     public static ObservableList<Task> taskListForTable = FXCollections.observableArrayList(); //Тут храняться задачи
     private static int idTask; //Переменная для храннения ID выбраной задачи используется при удалении
     String dateOfNewTask;  //Тут будет храниться дата крайнего срока задачи
@@ -241,6 +246,7 @@ public class MainController{
         stage.showAndWait();
     }
 
+    //Кнопка поиска
     @FXML
     void search(ActionEvent event) {
         //Скрываем сцену на которой находится кнопка edit
@@ -261,6 +267,28 @@ public class MainController{
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.showAndWait();
+    }
+
+    //Создание Проекта
+    @FXML
+    void CreateProject(ActionEvent event) {
+        //Инициализируем класс который будет показывать окно
+        FXMLLoader loader = new FXMLLoader();
+        //Используя сет локейшен показываем какой ресурс мы загрузим
+        loader.setLocation(getClass().getResource("/sample/fxml/project.fxml"));
+        //С помошью метода лоад загружем файл
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.showAndWait();
+
     }
 
 }

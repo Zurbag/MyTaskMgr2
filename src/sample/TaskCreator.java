@@ -28,7 +28,7 @@ public class TaskCreator {
             dataFinish = dateFinishString;
         }
 
-        //Запрос на удаление задачи
+        //Запрос на Создание задачи
         new DBTaskSetter().updateDate(new DBQuery().createTask(nameTask, dataFinish));
 
     }

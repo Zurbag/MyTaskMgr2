@@ -34,6 +34,7 @@ public class TaskDate {
         return day;
     }
 
+    //Получить сегодняшнюю дату в строку
     public String getTodayDateString(){
         return new GregorianCalendar().toZonedDateTime().format(DateTimeFormatter.ofPattern("uuuu-MM-dd"));
     }
