@@ -76,6 +76,9 @@ public class MainController{
     @FXML
     private Button CreateProjectBtn;
 
+    @FXML
+    private Button showProjectBtn;
+
 
 
     public static ObservableList<Task> taskListForTable = FXCollections.observableArrayList(); //Тут храняться задачи
@@ -289,6 +292,26 @@ public class MainController{
         stage.setResizable(false);
         stage.showAndWait();
 
+    }
+
+    @FXML
+    void ShowProject(ActionEvent event) {
+        //Инициализируем класс который будет показывать окно
+        FXMLLoader loader = new FXMLLoader();
+        //Используя сет локейшен показываем какой ресурс мы загрузим
+        loader.setLocation(getClass().getResource("/sample/fxml/projectsTable.fxml"));
+        //С помошью метода лоад загружем файл
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.showAndWait();
     }
 
 }
