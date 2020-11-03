@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import sample.TypeOfDisplayedTasks;
 import sample.dataBase.DBQuery;
-import sample.dataBase.DBTaskGetter;
+import sample.dataBase.DBGetter;
 
 public class SearchController {
 
@@ -34,7 +34,7 @@ public class SearchController {
         //Очишаем таблицу в классе MainController
         new MainController().taskListForTable.clear();
         //Вызываем статические метод для добавлнеия запроса
-        new MainController().setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTaskLikeName(taskSearchText.getText())));
+        new MainController().setTaskListForTable(new DBGetter().getTasks(new DBQuery().getTaskLikeName(taskSearchText.getText())));
 
         searchBtn.getScene().getWindow().hide();
 

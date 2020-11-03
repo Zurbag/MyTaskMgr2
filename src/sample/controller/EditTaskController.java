@@ -7,11 +7,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import sample.TypeOfDisplayedTasks;
 import sample.dataBase.DBQuery;
-import sample.dataBase.DBTaskGetter;
+import sample.dataBase.DBGetter;
 import sample.Task;
 import sample.dataBase.DBTaskSetter;
 
-public class EditController{
+public class EditTaskController {
 
     @FXML
     private TextField editNameTextField;
@@ -34,7 +34,7 @@ public class EditController{
     TypeOfDisplayedTasks typeOfDisplayedTasks = MainController.typeOfDisplayedTasks;
     @FXML
     private void initialize(){
-        for (Task x:new DBTaskGetter().getData(new DBQuery().getOneTaskForIndex(new MainController().getIdTask()))
+        for (Task x:new DBGetter().getTasks(new DBQuery().getOneTaskForIndex(new MainController().getIdTask()))
              ) {
             editTask.setId(x.getId());
             editNameTextField.setText(x.getName());

@@ -38,6 +38,8 @@ public class DBQuery {
 //    public String createProject(String name, String dateFinish){
 //        return ("INSERT INTO project (status, name, dateCreate, dateFinish) values( true, '" + name + "', '"  "', '" + dateFinish + "')");
 //    }
+
+    //Создание проекта
     public String createProject(String name, String dateFinish, String description){
         return ("INSERT INTO project (status, name, dateCreate, dateFinish, description) values( true, '" +name+"'," +
                 " '"+ new TaskDate().getTodayDateString() +"', '"+dateFinish+"', '"+description+"')");
@@ -56,4 +58,13 @@ public class DBQuery {
         return ("DELETE FROM `tasks` WHERE `id` = " + id + ";");
     }
 
+    //Показать все проекты
+    public String getAllProject(){
+        return "SELECT * FROM project";
+    }
+
+    //Отобразить задучу и проект LEFT OUTER JOIN
+    public String getAllTaskWithProject(){
+        return "SELECT tasks.id, tasks.status, tasks.name, tasks.dateCreate, tasks.dateFinish, project.name FROM tasks LEFT OUTER JOIN project ON project.id = tasks.project_id";
+    }
 }

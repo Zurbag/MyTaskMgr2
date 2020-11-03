@@ -18,12 +18,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sample.*;
 import sample.dataBase.DBQuery;
-import sample.dataBase.DBTaskGetter;
+import sample.dataBase.DBGetter;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainController{
+
+    @FXML
+    private Button showTaskWithProjectBtn;
+
 
     @FXML
     private TextField textFieldForNewTask;
@@ -48,6 +52,7 @@ public class MainController{
 
     @FXML
     private TableColumn<Task, String> dateFinish;
+    
 
     @FXML
     private Button todayTasksId;
@@ -85,6 +90,8 @@ public class MainController{
     private static int idTask; //Переменная для храннения ID выбраной задачи используется при удалении
     String dateOfNewTask;  //Тут будет храниться дата крайнего срока задачи
     public static TypeOfDisplayedTasks typeOfDisplayedTasks; //Это перечисления для хранения типа покзываемых задач, нужно для отображения задач после удаления
+    @FXML
+    private TableColumn<Task,String> project;
 
     @FXML
     private void initialize() {
@@ -94,13 +101,14 @@ public class MainController{
         name.setCellValueFactory(new PropertyValueFactory<Task, String>("name"));
         dateCreate.setCellValueFactory(new PropertyValueFactory<Task, String>("dateCreate"));
         dateFinish.setCellValueFactory(new PropertyValueFactory<Task, String>("dateFinish"));
+        project.setCellValueFactory(new PropertyValueFactory<Task, String>("project"));
 
         //Устанавливаю в датапикер сегодняшнюю дату, это не влияет на код переджаваемый в базу
         newTaskDataPiker.setPromptText(new TaskDate().getTodayDateString());
         // заполняем данными
         // по умолчанию это задачи на сегодняшний день
         //Создаем обьект который иницализирует запрос, вызываем у него метод на получение данных, с помошью BDQurry выбираем нужный запрос
-        setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
+        setTaskListForTable(new DBGetter().getTasks(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.TODAY;
 
         // добавляем данные в таблицу
@@ -135,19 +143,19 @@ public class MainController{
         switch (typeOfDisplayedTasks) {
             case TODAY -> {
                 taskListForTable.clear();
-                setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
+                setTaskListForTable(new DBGetter().getTasks(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
             }
             case WEEK -> {
                 taskListForTable.clear();
-                setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
+                setTaskListForTable(new DBGetter().getTasks(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
             }
             case LATER -> {
                 taskListForTable.clear();
-                setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
+                setTaskListForTable(new DBGetter().getTasks(new DBQuery().getAllTaskWithoutStatusFalse()));
             }
             case ALL -> {
                 taskListForTable.clear();
-                setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getAllTask()));
+                setTaskListForTable(new DBGetter().getTasks(new DBQuery().getAllTask()));
             }
         }
 
@@ -174,7 +182,7 @@ public class MainController{
     @FXML
     void showTodayTasksBtn(ActionEvent event) {
         taskListForTable.clear();
-        setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
+        setTaskListForTable(new DBGetter().getTasks(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString())));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.TODAY;
     }
 
@@ -182,7 +190,7 @@ public class MainController{
     @FXML
     void showWeekTasksBtn(ActionEvent event) {
         taskListForTable.clear();
-        setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
+        setTaskListForTable(new DBGetter().getTasks(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString())));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.WEEK;
     }
 
@@ -190,7 +198,7 @@ public class MainController{
     @FXML
     void showLaterTaskBtn(ActionEvent event) {
         taskListForTable.clear();
-        setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getAllTaskWithoutStatusFalse()));
+        setTaskListForTable(new DBGetter().getTasks(new DBQuery().getAllTaskWithoutStatusFalse()));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.LATER;
     }
 
@@ -198,8 +206,11 @@ public class MainController{
     @FXML
     void showAllTasksBtn(ActionEvent event) {
         taskListForTable.clear();
-        setTaskListForTable(new DBTaskGetter().getData(new DBQuery().getAllTask()));
+
+        //setTaskListForTable(new DBGetter().getTasks(new DBQuery().getAllTask()));
+        setTaskListForTable(new DBGetter().getTasksWithProject(new DBQuery().getAllTaskWithProject()));
         typeOfDisplayedTasks = TypeOfDisplayedTasks.ALL;
+
 
 
     }
@@ -209,7 +220,7 @@ public class MainController{
     void deleteTaskBtn(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
         //Используя сет локейшен показываем какой ресурс мы загрузим
-        loader.setLocation(getClass().getResource("/sample/fxml/delete.fxml"));
+        loader.setLocation(getClass().getResource("/sample/fxml/deleteTask.fxml"));
         //С помошью метода лоад загружем файл
         try {
             loader.load();
@@ -234,7 +245,7 @@ public class MainController{
         //Инициализируем класс который будет показывать окно
         FXMLLoader loader = new FXMLLoader();
         //Используя сет локейшен показываем какой ресурс мы загрузим
-        loader.setLocation(getClass().getResource("/sample/fxml/edit.fxml"));
+        loader.setLocation(getClass().getResource("/sample/fxml/editTask.fxml"));
         //С помошью метода лоад загружем файл
         try {
             loader.load();
@@ -257,7 +268,7 @@ public class MainController{
         //Инициализируем класс который будет показывать окно
         FXMLLoader loader = new FXMLLoader();
         //Используя сет локейшен показываем какой ресурс мы загрузим
-        loader.setLocation(getClass().getResource("/sample/fxml/search.fxml"));
+        loader.setLocation(getClass().getResource("/sample/fxml/searchTask.fxml"));
         //С помошью метода лоад загружем файл
         try {
             loader.load();
@@ -270,28 +281,6 @@ public class MainController{
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.showAndWait();
-    }
-
-    //Создание Проекта
-    @FXML
-    void CreateProject(ActionEvent event) {
-        //Инициализируем класс который будет показывать окно
-        FXMLLoader loader = new FXMLLoader();
-        //Используя сет локейшен показываем какой ресурс мы загрузим
-        loader.setLocation(getClass().getResource("/sample/fxml/project.fxml"));
-        //С помошью метода лоад загружем файл
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.showAndWait();
-
     }
 
     @FXML
@@ -312,6 +301,12 @@ public class MainController{
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.showAndWait();
+    }
+
+    @FXML
+    void showTaskWithProject(ActionEvent event) {
+        System.out.println("hello world");
+        Task task = new Task();
     }
 
 }

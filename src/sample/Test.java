@@ -1,7 +1,7 @@
 package sample;
 
 import sample.dataBase.DBQuery;
-import sample.dataBase.DBTaskGetter;
+import sample.dataBase.DBGetter;
 import sample.dataBase.DBTaskSetter;
 
 import java.util.Scanner;
@@ -31,7 +31,7 @@ public class Test {
                 new DBTaskSetter().updateDate(new DBQuery().createTask(name,date));
             }//Показать все задачи
             else if (go == 1){
-                for (Task x: new DBTaskGetter().getData(new DBQuery().getAllTask())
+                for (Task x: new DBGetter().getTasks(new DBQuery().getAllTask())
                 ) {
                     System.out.print(x.getId()+" ");
                     System.out.print(x.getStatus()+" ");
@@ -42,7 +42,7 @@ public class Test {
                 }
                 //Показать сегодняшние задачи
             }else if (go == 2){
-                for (Task x: new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString()))
+                for (Task x: new DBGetter().getTasks(new DBQuery().getTasksForThisDate(new TaskDate().getTodayDateString()))
                 ) {
                     System.out.print(x.getId()+" ");
                     System.out.print(x.getStatus()+" ");
@@ -53,7 +53,7 @@ public class Test {
                 }
                 //Показать задачи на неделю
             }else if (go == 3){
-                for (Task x: new DBTaskGetter().getData(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString()))//
+                for (Task x: new DBGetter().getTasks(new DBQuery().getTasksForThisDate(new TaskDate().getTodayPlusSevenDayToString()))//
                 ) {
                     System.out.print(x.getId()+" ");
                     System.out.print(x.getName()+" ");
@@ -64,9 +64,9 @@ public class Test {
 
                 //Показать задачу по id
             }else if (go == 4){
-                DBTaskGetter recipient = new DBTaskGetter();
+                DBGetter recipient = new DBGetter();
                 System.out.println("Введите id задачи");
-                for (Task x: recipient.getData(new DBQuery().getOneTaskForIndex(scanner.nextInt()))//
+                for (Task x: recipient.getTasks(new DBQuery().getOneTaskForIndex(scanner.nextInt()))//
                 ) {
                     System.out.print(x.getId()+" ");
                     System.out.print(x.getName()+" ");

@@ -7,13 +7,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainController">
     <children>
-        <TextField fx:id="textFieldForNewTask" layoutX="16.0" layoutY="15.0" prefHeight="25.0" prefWidth="781.0" promptText="Add new task">
+        <TextField fx:id="textFieldForNewTask" layoutX="13.0" layoutY="15.0" prefHeight="25.0" prefWidth="781.0" promptText="Add new task">
         </TextField>
         <Button fx:id="addNewTaskId" layoutX="950.0" layoutY="15.0" mnemonicParsing="false" onAction="#addNewTaskBtn" prefHeight="25.0" prefWidth="54.0" style="-fx-background-color: green;" text="Add" textFill="WHITE">
         </Button>
-        <TableView fx:id="tableShowTasks" layoutX="13.0" layoutY="94.0" prefHeight="492.0" prefWidth="989.0">
+        <TableView fx:id="tableShowTasks" layoutX="13.0" layoutY="86.0" prefHeight="500.0" prefWidth="989.0">
             <columns>
                 <TableColumn fx:id="setStatus" prefWidth="47.0" text="status" />
                 <TableColumn fx:id="id" prefWidth="53.0" text="id" />
@@ -36,8 +36,8 @@
         </Button>
         <Button fx:id="showAllTasksId" layoutX="288.0" layoutY="601.0" mnemonicParsing="false" onAction="#showAllTasksBtn" text="All" />
         <Button fx:id="editTaskId" layoutX="900.0" layoutY="601.0" mnemonicParsing="false" onAction="#editTaskBtn" text="Edit" />
-        <Button fx:id="searchBtn" layoutX="16.0" layoutY="52.0" mnemonicParsing="false" onAction="#search" text="Search" />
-      <Button fx:id="CreateProjectBtn" layoutX="924.0" layoutY="52.0" mnemonicParsing="false" onAction="#CreateProject" text="New Project" />
-      <Button fx:id="showProjectBtn" layoutX="832.0" layoutY="52.0" mnemonicParsing="false" onAction="#ShowProject" text="Show Project" />
+        <Button fx:id="searchBtn" layoutX="928.0" layoutY="52.0" mnemonicParsing="false" onAction="#search" text="Search task" />
+      <Button fx:id="showProjectBtn" layoutX="13.0" layoutY="52.0" mnemonicParsing="false" onAction="#ShowProject" prefHeight="25.0" prefWidth="54.0" style="-fx-background-color: green;" text="Project" textFill="WHITE" />
+      <Button fx:id="showTaskWithProjectBtn" layoutX="409.0" layoutY="52.0" mnemonicParsing="false" onAction="#showTaskWithProject" prefHeight="25.0" prefWidth="198.0" style="-fx-background-color: green;" text="Show task with Project" textFill="WHITE" />
     </children>
 </AnchorPane>

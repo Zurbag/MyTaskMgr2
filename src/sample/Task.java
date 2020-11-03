@@ -24,6 +24,15 @@ public class Task {
         this.dateFinish = dateFinish;
     }
 
+    public Task(int id, Boolean status, String name, String dateCreate, String dateFinish, String project) {
+        this.id = id;
+        this.status = status;
+        this.name = name;
+        this.dateCreate = dateCreate;
+        this.dateFinish = dateFinish;
+        this.project = project;
+    }
+
     public int getId() {
         return id;
     }
@@ -62,5 +71,9 @@ public class Task {
 
     public void setDateFinish(String dateFinish) {
         this.dateFinish = dateFinish;
+    }
+
+    public String getProject() {
+        return project;
     }
 }
